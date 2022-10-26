@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import UserProfile from './components/UserProfile/UserProfile';
 import SignUp from './components/SignUp/SignUp';
 import Header from './components/Header/Header';
-import SearchScreen from './Pages/SearchPage';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import AdminRoute from './components/AdminRoute/AdminRoute';
 import DashboardScreen from './Admin/DashboardScreen';
@@ -16,6 +15,8 @@ import ProductListScreen from './Admin/ProductListScreen';
 import ProductEditScreen from './Admin/ProductEditScreen';
 import UserListScreen from './Admin/UserListScreen';
 import UserEditScreen from './Admin/UserEditScreen';
+import SearchPage from './Pages/SearchPage';
+import SearchScreen from './Pages/SearchScreen';
 
 function App() {
   return (
@@ -27,8 +28,19 @@ function App() {
         <Route path='/signin' element={<SignIn />}></Route>
         <Route path='/signup' element={<SignUp />}></Route>
         <Route path="/product/:rname" element={<ProductScreen />} />
+        <Route
+            path="/search/:name/:price/:rating/:page"
+            element={<SearchScreen />}
+          ></Route>
+          <Route
+            path="/search"
+            element={<SearchScreen />}
+          ></Route>
+          <Route
+            path="/search/:name"
+            element={<SearchScreen />}
+          ></Route>
         <Route path='/profile' element={<ProtectedRoute><UserProfile /></ProtectedRoute>} />
-        <Route path='/search' element={<SearchScreen />} />
         {/*Admin Route*/}
         <Route
           path="/admin/dashboard"

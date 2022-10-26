@@ -6,6 +6,7 @@ import LoadingBox from '../components/LoadingBox/LoadingBox';
 import MessageBox from '../components/MessageBox/MessageBox';
 import Cards from '../components/Card/Card';
 import '../Styles/SearchPageCss.css';
+import { useNavigate } from 'react-router-dom';
 
 
 const reducer = (state, action) => {
@@ -22,11 +23,8 @@ const reducer = (state, action) => {
 }
 const SearchPage = () => {
 
-    const [item, setItem] = useState();
-    const [menuItem, setMenuItems] = useState();
-
-
-
+    const navigate = useNavigate();
+    const [name, setName] = useState('')
     const [fdata, setFdata] = useState([]);
     const [copydata, setCopyData] = useState([]);
     const [{ loading, error }, dispatch] = useReducer(logger(reducer), {
@@ -47,13 +45,7 @@ const SearchPage = () => {
             setCopyData(storedata)
         }
     }
-    const filterItem = (curcat) => {
-        const newItem = fdata.filter((newVal) => {
-            return newVal.price === curcat;
-        });
-        setItem(newItem);
-        console.log(item)
-    };
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -62,8 +54,6 @@ const SearchPage = () => {
                 const result = await axios.get('api/products');
                 setCopyData(result.data);
                 setFdata(result.data);
-                setItem(result.data)
-                setMenuItems([...new Set(result.data.map((Val) => Val.price))]);
 
                 dispatch({ type: 'FETCH_SUCCESS' });
             }
@@ -74,15 +64,27 @@ const SearchPage = () => {
         };
         fetchData();
     }, [])
+
+    const submitHandler = (e) =>{
+        e.preventDefault();
+        navigate(name ? `/search/${name}` : '/search');
+
+    }
     return (
         <div>
-            <Form className='d-flex justify-content-center align-items-center mt-3'>
+            <Form className='d-flex justify-content-center align-items-center mt-3' onSubmit={submitHandler}>
                 <Form.Group className=" mx-2 col-lg-4" controlId="formBasicEmail">
 
                     <Form.Control type="text"
-                        onChange={(e) => chanegData(e.target.value)}
+                        // onChange={(e) => chanegData(e.target.value)}
+                        
+                        onChange={(e) => setName(e.target.value)}
                         placeholder="Search Restaurant" />
+                        
                 </Form.Group>
+                <button className="primary" type="submit">
+          <i className="fa fa-search"></i>
+        </button>
             </Form>
             <section className='iteam_section mt-4 container'>
                 {/* <h2 className='px-4' style={{ fontWeight: 400 }}>Restaurants in Ahmedabad Open now</h2> */}

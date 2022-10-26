@@ -7,7 +7,7 @@ import SearchPage from './SearchPage';
 
 const HomePage = () => {
 
-    const [activeTab, setActiveTab] = useState("Explore");
+    const [activeTab, setActiveTab] = useState("Search");
 
   return (
     <div>
@@ -22,16 +22,16 @@ const HomePage = () => {
 }
 
 const getCorrectScreen = (tab) => {
-    switch (tab) {
-      case "Search":
-        return <SearchPage />;
-  
-      case "Explore":
-        return <ExplorePage />;
-  
-      default:
-        return <ExplorePage />;
-    }
+  switch (tab) {
+    case "Search":
+      return <SearchPage />;
+
+    case "Explore":
+      return <ExplorePage />;
+
+    default:
+      return <SearchPage />;
   }
+}
 
 export default HomePage

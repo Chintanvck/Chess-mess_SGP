@@ -65,6 +65,66 @@ productRouter.delete(
 );
 
 const PAGE_SIZE = 3;
+productRouter.get(
+  '/search',
+  expressAsyncHandler(async (req, res) => {
+    const { query } = req;
+    const pageSize = query.pageSize || PAGE_SIZE;
+    const page = query.page || 1;
+    const price = query.price || '';
+    const rating = query.rating || '';
+    const searchQuery = query.name || '';
+
+    const queryFilter =
+      searchQuery && searchQuery !== 'all'
+        ? {
+            rname: {
+              $regex: searchQuery,
+              $options: 'i',
+            },
+          }
+        : {};
+
+    const ratingFilter =
+      rating && rating !== 'all'
+        ? {
+            rating: {
+              $gte: Number(rating),
+            },
+          }
+        : {};
+    const priceFilter =
+      price && price !== 'all'
+        ? {
+            // 1-50
+            price: {
+              $gte: Number(price.split('-')[0]),
+              $lte: Number(price.split('-')[1]),
+            },
+          }
+        : {};
+
+    const products = await Product.find({
+      ...queryFilter,
+      ...priceFilter,
+      ...ratingFilter,
+    })
+      .skip(pageSize * (page - 1))
+      .limit(pageSize);
+
+    const countProducts = await Product.countDocuments({
+      ...queryFilter,
+      ...priceFilter,
+      ...ratingFilter,
+    });
+    res.send({
+      products,
+      countProducts,
+      page,
+      pages: Math.ceil(countProducts / pageSize),
+    });
+  })
+);
 
 productRouter.get(
   '/admin',
