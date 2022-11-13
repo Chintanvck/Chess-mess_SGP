@@ -50,15 +50,15 @@ const reducer = (state, action) => {
 
 const prices = [
     {
-        name: '$1 to $50',
+        name: '1₹ to 50₹',
         value: '1-50',
     },
     {
-        name: '$51 to $200',
+        name: '51₹ to 200₹',
         value: '51-200',
     },
     {
-        name: '$201 to $1000',
+        name: '201₹ to 1000₹',
         value: '201-1000',
     },
 ];
@@ -148,6 +148,7 @@ export default function SearchScreen() {
                                 <Link
                                     className={'all' === price ? 'text-bold' : ''}
                                     to={getFilterUrl({ price: 'all' })}
+                                    style={{ textDecoration: 'none' }}
                                 >
                                     Any
                                 </Link>
@@ -157,6 +158,7 @@ export default function SearchScreen() {
                                     <Link
                                         to={getFilterUrl({ price: p.value })}
                                         className={p.value === price ? 'text-bold' : ''}
+                                        style={{ textDecoration: 'none' }}
                                     >
                                         {p.name}
                                     </Link>
@@ -172,6 +174,7 @@ export default function SearchScreen() {
                                     <Link
                                         to={getFilterUrl({ rating: r.rating })}
                                         className={`${r.rating}` === `${rating}` ? 'text-bold' : ''}
+                                        style={{ textDecoration: 'none' }}
                                     >
                                         <Rating caption={' & up'} rating={r.rating}></Rating>
                                     </Link>
@@ -181,6 +184,7 @@ export default function SearchScreen() {
                                 <Link
                                     to={getFilterUrl({ rating: 'all' })}
                                     className={rating === 'all' ? 'text-bold' : ''}
+                                    style={{ textDecoration: 'none' }}
                                 >
                                     <Rating caption={' & up'} rating={0}></Rating>
                                 </Link>

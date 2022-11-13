@@ -64,7 +64,7 @@ productRouter.delete(
   })
 );
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 10;
 productRouter.get(
   '/search',
   expressAsyncHandler(async (req, res) => {

@@ -50,7 +50,7 @@ const UserProfile = () => {
                 },
                 {
                   headers: { Authorization: `Bearer ${userInfo.token}` },
-                }
+                } 
               );
               dispatch({
                 type: 'UPDATE_SUCCESS',

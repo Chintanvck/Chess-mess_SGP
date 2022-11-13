@@ -20,7 +20,7 @@ const Cards = ({ data }) => {
 
                                     <div className="lower_data d-flex  justify-content-between">
                                         <h5>{element.address}</h5>
-                                        <span>{element.price}</span>
+                                        <span>{element.price}₹</span>
                                     </div>
 
 
